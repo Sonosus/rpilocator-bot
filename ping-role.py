@@ -1,7 +1,10 @@
 import os
+import logging
 import discord
 from discord.utils import get
 from dotenv import load_dotenv
+
+logging.basicConfig(level=logging.INFO)
 
 # load discord token from .env file
 load_dotenv()
@@ -14,10 +17,13 @@ client = discord.Client()
 @client.event
 async def on_ready():
     global ping_role, ping_channel
-    print('We have logged in as {0.user}'.format(client))
+    logging.info('We have logged in as {0.user}'.format(client))
     guild = client.guilds[0]
     ping_role = get(guild.roles, name="RPi Pings")
     ping_channel = get(guild.channels, name="rpi-locator")
+    logging.info(f"Guild is {guild}")
+    logging.info(f"Role to ping is {ping_role}")
+    logging.info(f"Channel to monitor is {ping_channel}")
 
 @client.event
 async def on_message(message):
