@@ -42,7 +42,7 @@ async def on_message(message):
     if channel == once_channel:
         perms = channel.overwrites_for(author)
         perms.send_messages = False
-        await channel.set_permissions(member, overwrite=perms, reason="One post per person!")
+        await channel.set_permissions(author, overwrite=perms, reason="One post per person!")
 
 # connect to discord
 client.run(DISCORD_TOKEN)
